@@ -42,5 +42,19 @@ void addNodeTail(Review*& tail, double rating, const string& comments) {
     newNode->rating = rating;
     newNode->comments = comments;
     newNode->next = nullptr;
-    tail->n
+    tail->next = newNode;
+    tail = newNode;
+}
+
+void traverseList(Review* head) {
+    Review* current = head->next; // Skip dummy head
+    int count = 0;
+    double sum = 0.0;
+    cout << fixed << setprecision(1);
+    while (current != nullptr) {
+        count++;
+        cout << "    > Review #" << count << ": " << current->rating << ": " << current->comments << endl;
+        sum += current->rating;
+        current = current->next;
+    }
 
