@@ -18,14 +18,45 @@ void deleteList(Review*& head);
 
 int main() {
     Review* head = nullptr;
-    Review* tail = nullptr; 
+    Review* tail = nullptr; // For adding nodes to tail
     int choice;
     cout << "Which linked list method should we use?\n";
     cout << "    [1] New nodes are added at the head of the linked list\n";
     cout << "    [2] New nodes are added at the tail of the linked list\n";
     cout << "Choice: ";
     cin >> choice;
-    cin.ignore(); 
+    cin.ignore(); // Ignore the newline character after the integer input
+
+    char another = 'y';
+    while (tolower(another) == 'y') {
+        double rating;
+        cout << "Enter review rating 0-5: ";
+        cin >> rating;
+        cin.ignore(); // Ignore the newline character after the double input
+
+        string comments;
+        cout << "Enter review comments: ";
+        getline(cin, comments);
+
+        if (choice == 1) {
+            addNodeHead(head, rating, comments);
+        } else if (choice == 2) {
+            addNodeTail(head, tail, rating, comments);
+        } else {
+            cout << "Invalid choice.\n";
+            return 1;
+        }
+
+        cout << "Enter another review? Y/N: ";
+        cin >> another;
+        cin.ignore(); // Ignore the newline character
+    }
+
+    cout << "Outputting all reviews:\n";
+    traverseList(head);
+
+    // Free the allocated memory
+    deleteList(head);
 
     return 0;
 }
