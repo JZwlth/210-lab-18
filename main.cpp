@@ -33,28 +33,41 @@ void addNodeHead(Review*& head, double rating, const string& comments) {
     Review* newNode = new Review;
     newNode->rating = rating;
     newNode->comments = comments;
-    newNode->next = head->next; // Insert after dummy head
-    head->next = newNode;
+    newNode->next = head;
+    head = newNode;
 }
 
-void addNodeTail(Review*& tail, double rating, const string& comments) {
+void addNodeTail(Review*& head, Review*& tail, double rating, const string& comments) {
     Review* newNode = new Review;
     newNode->rating = rating;
     newNode->comments = comments;
     newNode->next = nullptr;
-    tail->next = newNode;
-    tail = newNode;
+    if (head == nullptr) {
+        // List is empty
+        head = newNode;
+        tail = newNode;
+    } else {
+        tail->next = newNode;
+        tail = newNode;
+    }
 }
 
 void traverseList(Review* head) {
-    Review* current = head->next; // Skip dummy head
+    Review* current = head;
     int count = 0;
     double sum = 0.0;
     cout << fixed << setprecision(1);
     while (current != nullptr) {
         count++;
-        cout << "    > Review #" << count << ": " << current->rating << ": " << current->comments << endl;
+        cout << "        > Review #" << count << ": " << current->rating << ": " << current->comments << endl;
         sum += current->rating;
         current = current->next;
     }
-
+    if (count > 0) {
+        double average = sum / count;
+        cout << fixed << setprecision(5);
+        cout << "        > Average: " << average << endl;
+    } else {
+        cout << "No reviews to display.\n";
+    }
+}
