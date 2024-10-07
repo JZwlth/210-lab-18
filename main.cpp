@@ -28,3 +28,19 @@ int main() {
 
     return 0;
 }
+
+void addNodeHead(Review*& head, double rating, const string& comments) {
+    Review* newNode = new Review;
+    newNode->rating = rating;
+    newNode->comments = comments;
+    newNode->next = head->next; // Insert after dummy head
+    head->next = newNode;
+}
+
+void addNodeTail(Review*& tail, double rating, const string& comments) {
+    Review* newNode = new Review;
+    newNode->rating = rating;
+    newNode->comments = comments;
+    newNode->next = nullptr;
+    tail->n
+
