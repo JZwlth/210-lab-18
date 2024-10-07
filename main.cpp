@@ -11,20 +11,21 @@ struct Review {
 };
 
 //Function Prototypes
-
+void addNodeHead(Review*& head, double rating, const string& comments);
+void addNodeTail(Review*& head, Review*& tail, double rating, const string& comments);
+void traverseList(Review* head);
+void deleteList(Review*& head);
 
 int main() {
-    // Initialize the linked list with a dummy head node
-    Review* head = new Review{0.0, "", nullptr};
-    Review* tail = head; // Start tail at head since list has one node now
-
+    Review* head = nullptr;
+    Review* tail = nullptr; 
     int choice;
     cout << "Which linked list method should we use?\n";
     cout << "    [1] New nodes are added at the head of the linked list\n";
     cout << "    [2] New nodes are added at the tail of the linked list\n";
-    cout << "    Choice: ";
+    cout << "Choice: ";
     cin >> choice;
-    cin.ignore();
+    cin.ignore(); 
 
     return 0;
 }
@@ -70,4 +71,14 @@ void traverseList(Review* head) {
     } else {
         cout << "No reviews to display.\n";
     }
+}
+
+void deleteList(Review*& head) {
+    Review* current = head;
+    while (current != nullptr) {
+        Review* next = current->next;
+        delete current;
+        current = next;
+    }
+    head = nullptr;
 }
